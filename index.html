@@ -3,16 +3,11 @@
 <style>
 :root{font-family:Arial,sans-serif;color:#182b43;background:#eef4fb}*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(110deg,#123b68,#2479a8);color:white;padding:25px;text-align:center}main{max-width:1000px;margin:auto;padding:20px}nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}button{cursor:pointer;border:0;border-radius:9px;padding:12px 16px;font-weight:bold;background:#dce9f6;color:#143858}button:hover{filter:brightness(.95)}button.active,.primary{background:#1766a3;color:white}.panel{display:none;background:white;border-radius:14px;padding:22px;box-shadow:0 3px 16px #14385816}.panel.active{display:block}.card{border:1px solid #d5e0eb;border-radius:10px;padding:15px;margin:12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.muted{color:#54677c}.choice{display:block;width:100%;text-align:left;margin:8px 0;background:#edf3fa}.correct{background:#c8efd8!important}.wrong{background:#ffd8d8!important}.flash{min-height:190px;display:grid;place-items:center;text-align:center;background:#e7f3ff;border:2px solid #aacce6;border-radius:14px;padding:25px;font-size:1.35rem;cursor:pointer}.hidden{display:none}.map{width:100%;max-height:420px;border:1px solid #ccd9e8;border-radius:12px;background:#dceffb}input[type=text]{padding:11px;border:1px solid #a9bcd1;border-radius:8px;width:100%;max-width:420px}footer{text-align:center;padding:22px;color:#50637a}#timer{font-size:1.3rem;font-weight:bold}label{display:block;margin:8px 0}
 </style></head><body>
-<header><h1>🌎 Geography Learning Lab</h1><p>First Grade • Study Guide • Flashcards • Practice • Map Challenge • Final Exam</p></header>
-<main><nav id="tabs"><button class="active" data-tab="guide">Study Guide</button><button data-tab="flashcards">Flashcards</button><button data-tab="practice">Practice Quiz</button><button data-tab="maps">Map Challenge</button><button data-tab="exam">Final Exam</button></nav>
-<section class="panel active" id="guide"><h2>Study Guide</h2><p>Read each definition, study the examples, and then test your knowledge.</p><div id="guideContent" class="grid"></div><h3>World Regions</h3><div id="regionsContent" class="grid"></div></section>
+<header><h1>🌎 Geography Learning Lab</h1><p>First Grade • Study Guide • Flashcards • Practice • Final Exam • Geography Tools</p></header>
+<main><nav id="tabs"><button class="active" data-tab="guide">Study Guide</button><button data-tab="flashcards">Flashcards</button><button data-tab="practice">Practice Quiz</button><button data-tab="exam">Final Exam</button></nav>
+<section class="panel active" id="guide"><h2>Study Guide</h2><p>Read each definition, study the examples, and then test your knowledge.</p><div id="guideContent" class="grid"></div><h3>World Regions</h3><div id="regionsContent" class="grid"></div><h3>Geography Tools and Weather Instruments</h3><p>Learn what each tool measures or helps us observe.</p><div id="toolsContent" class="grid"></div></section>
 <section class="panel" id="flashcards"><h2>Flashcards</h2><p>Click the card to reveal the answer.</p><p id="flashProgress"></p><div class="flash" id="flashCard" tabindex="0" role="button"></div><p><button id="prevFlash">Previous</button> <button id="flipFlash" class="primary">Flip Card</button> <button id="nextFlash">Next</button> <button id="shuffleFlash">Shuffle</button></p></section>
-<section class="panel" id="practice"><h2>Practice Quiz</h2><p>Choose an answer and receive immediate feedback. You can try again with shuffled questions.</p><div id="practiceContent"></div><button class="primary" id="restartPractice">New Practice</button></section>
-<section class="panel" id="maps"><h2>Map Challenge</h2><p>Study this simplified, schematic world map. It is not drawn to scale. Select a marker to identify its region.</p>
-<svg class="map" viewBox="0 0 850 430" role="img" aria-label="Simplified schematic world map with five numbered region markers">
-<path fill="#a6cbb5" stroke="#608f81" stroke-width="2" d="M65 80 L155 40 225 70 260 140 220 195 175 190 140 265 95 235 90 160 50 140Z M200 230 L270 210 300 280 275 375 230 390 205 325Z M385 75 L450 55 505 85 535 65 675 75 760 125 725 195 670 205 650 270 580 260 535 210 480 225 460 170 415 170Z M440 205 L520 210 545 275 515 360 465 350 425 280Z M680 305 L765 305 805 360 765 395 700 380Z"/>
-<g fill="#165c9b" stroke="white" stroke-width="3"><circle cx="445" cy="156" r="19"/><circle cx="465" cy="236" r="19"/><circle cx="651" cy="255" r="19"/><circle cx="190" cy="203" r="19"/><circle cx="465" cy="95" r="19"/></g><g fill="white" font-size="19" font-weight="bold" text-anchor="middle"><text x="445" y="163">1</text><text x="465" y="243">2</text><text x="651" y="262">3</text><text x="190" y="210">4</text><text x="465" y="102">5</text></g></svg>
-<div id="mapQuestions"></div><button class="primary" id="checkMaps">Check Map Answers</button><p id="mapResult" aria-live="polite"></p><h3>Use Your Paper Maps</h3><p>On your maps of Africa, Asia, Europe, and Oceania, label examples of gulfs, peninsulas, islands, archipelagos, straits, and isthmuses where they exist. Write “Not applicable” when a feature is not present. Color the world regions studied in class.</p></section>
+<section class="panel" id="practice"><h2>Practice Quiz</h2><p>Answer 50 questions and receive immediate feedback. You can try again with shuffled questions.</p><div id="practiceContent"></div><button class="primary" id="restartPractice">New Practice</button></section>
 <section class="panel" id="exam"><h2>Final Exam — 30 Questions</h2><p>Enter your name, then start the timed exam. You have 15 minutes. Your answers are submitted automatically when time runs out.</p><label for="studentName">Student name</label><input id="studentName" type="text" placeholder="Full name"><p id="timer">15:00</p><button class="primary" id="startExam">Start Exam</button><div id="examContent"></div><button class="primary hidden" id="submitExam">Submit Exam</button><div id="examResult" aria-live="polite"></div></section></main><footer>Geography Learning Lab • Learn, practice, and explore!</footer>
 <script>
 const features=[
@@ -23,6 +18,18 @@ const features=[
 ['Strait','A narrow waterway connecting two larger bodies of water.','Strait of Gibraltar'],
 ['Isthmus','A narrow strip of land connecting two larger land areas.','Isthmus of Panama'],
 ['Lake','A body of inland water surrounded by land.','Lake Victoria']];
+const toolsData=[
+['Thermometer','Measures air temperature.','Degrees Celsius (°C)'],
+['Barometer','Measures atmospheric air pressure.','Hectopascals (hPa)'],
+['Anemometer','Measures wind speed.','Kilometers per hour (km/h) or meters per second (m/s)'],
+['Wind vane','Shows the direction the wind comes from.','North, south, east, or west'],
+['Hygrometer','Measures relative humidity in the air.','Percent (%)'],
+['Rain gauge','Measures the amount of rainfall.','Millimeters (mm)'],
+['Compass','Shows directions using Earth’s magnetic field.','Cardinal directions'],
+['GPS receiver','Helps determine location using satellite signals.','Latitude and longitude'],
+['Map','Represents places and geographic features on a flat surface.','Symbols, scale, and legend'],
+['Globe','Represents Earth as a three-dimensional model.','Continents and oceans'],
+['Seismograph','Records ground movement caused by seismic waves.','Seismic recordings']];
 const regions=[
 ['Mediterranean','Around the Mediterranean Sea, between southern Europe, northern Africa, and western Asia.'],
 ['Sahel','A semi-arid belt south of the Sahara Desert in Africa.'],
@@ -30,9 +37,10 @@ const regions=[
 ['Caribbean','A region around the Caribbean Sea, including many islands and nearby coastal areas.'],
 ['Scandinavia','A northern European region commonly referring to Norway, Sweden, and Denmark.']];
 document.getElementById('guideContent').innerHTML=features.map(x=>`<article class="card"><h3>${x[0]}</h3><p>${x[1]}</p><p class="muted"><b>Example:</b> ${x[2]}</p></article>`).join('');
+document.getElementById('toolsContent').innerHTML=toolsData.map(x=>`<article class="card"><h3>${x[0]}</h3><p>${x[1]}</p><p class="muted"><b>Units or use:</b> ${x[2]}</p></article>`).join('');
 document.getElementById('regionsContent').innerHTML=regions.map(x=>`<article class="card"><h3>${x[0]}</h3><p>${x[1]}</p></article>`).join('');
 document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#tabs button,.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active')});
-const deck=[...features.map(x=>({q:'What is a '+x[0].toLowerCase()+'?',a:x[1]})),...regions.map(x=>({q:'Where is '+x[0]+'?',a:x[1]}))];let cards=[...deck],cardIndex=0,flipped=false;
+const deck=[...features.map(x=>({q:'What is a '+x[0].toLowerCase()+'?',a:x[1]})),...regions.map(x=>({q:'Where is '+x[0]+'?',a:x[1]})),...toolsData.map(x=>({q:'What does a '+x[0].toLowerCase()+' do?',a:x[1]}))];let cards=[...deck],cardIndex=0,flipped=false;
 function showFlash(){document.getElementById('flashProgress').textContent=`Card ${cardIndex+1} of ${cards.length}`;document.getElementById('flashCard').textContent=flipped?cards[cardIndex].a:cards[cardIndex].q}
 function flip(){flipped=!flipped;showFlash()}document.getElementById('flashCard').onclick=flip;document.getElementById('flashCard').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}};
 document.getElementById('flipFlash').onclick=flip;document.getElementById('prevFlash').onclick=()=>{cardIndex=(cardIndex+cards.length-1)%cards.length;flipped=false;showFlash()};document.getElementById('nextFlash').onclick=()=>{cardIndex=(cardIndex+1)%cards.length;flipped=false;showFlash()};document.getElementById('shuffleFlash').onclick=()=>{cards=shuffle(cards);cardIndex=0;flipped=false;showFlash()};showFlash();
@@ -67,16 +75,34 @@ const bank=[
 ['A narrow water passage between land areas is a...','Strait','Isthmus','Peninsula','Lake'],
 ['A narrow land bridge between larger land areas is an...','Isthmus','Archipelago','Strait','Gulf'],
 ['Which feature can contain many separate islands?','Archipelago','Peninsula','Lake','Isthmus'],
-['Which pair correctly matches a feature and an example?','Lake — Lake Victoria','Gulf — Madagascar','Strait — Philippines','Isthmus — Gulf of Mexico']];
+['Which pair correctly matches a feature and an example?','Lake — Lake Victoria','Gulf — Madagascar','Strait — Philippines','Isthmus — Gulf of Mexico'],
+['Which instrument measures air temperature?','Thermometer','Barometer','Anemometer','Hygrometer'],
+['Which instrument measures air pressure?','Barometer','Rain gauge','Wind vane','Compass'],
+['Which instrument measures wind speed?','Anemometer','Thermometer','Hygrometer','Globe'],
+['Which instrument measures relative humidity?','Hygrometer','Barometer','Compass','Seismograph'],
+['Which instrument measures rainfall?','Rain gauge','Wind vane','Thermometer','GPS receiver'],
+['Which instrument indicates wind direction?','Wind vane','Rain gauge','Anemometer','Barometer'],
+['Which tool helps you find cardinal directions?','Compass','Rain gauge','Thermometer','Hygrometer'],
+['Which tool uses satellite signals to determine location?','GPS receiver','Barometer','Wind vane','Rain gauge'],
+['Which tool is a three-dimensional model of Earth?','Globe','Map','Compass','Thermometer'],
+['Which tool represents places on a flat surface?','Map','Globe','Rain gauge','Anemometer'],
+['Which instrument records ground movement from seismic waves?','Seismograph','Hygrometer','Thermometer','Wind vane'],
+['What unit is commonly used for rainfall?','Millimeters','Degrees Celsius','Kilometers per hour','Percent'],
+['What unit is commonly used for relative humidity?','Percent','Millimeters','Degrees Celsius','Hectopascals'],
+['Which tool would you use to compare wind speed on two days?','Anemometer','Wind vane','Barometer','Compass'],
+['Which tool would you use to compare atmospheric pressure on two days?','Barometer','Hygrometer','Rain gauge','GPS receiver'],
+['A student wants to record the amount of rain during a storm. Which tool is best?','Rain gauge','Thermometer','Compass','Wind vane'],
+['Which instrument could you make using a jar, balloon, and straw?','Barometer','GPS receiver','Seismograph','Globe'],
+['What does a map legend explain?','Map symbols','Air pressure','Wind speed','Rainfall amount'],
+['What does a map scale help you estimate?','Real-world distance','Humidity','Air temperature','Wind direction'],
+['Which pair correctly matches a tool and its purpose?','Hygrometer — humidity','Barometer — rainfall','Thermometer — wind speed','Compass — air pressure']];
 function questions(){return shuffle(bank).map(x=>{let opts=shuffle(x.slice(1));return {q:x[0],answer:x[1],opts}})}
 function renderQuestion(q,i,mode){return `<div class="card" data-answer="${q.answer}"><p><b>${i+1}. ${q.q}</b></p>${q.opts.map(o=>`<label><input type="radio" name="${mode}${i}" value="${o}"> ${o}</label>`).join('')}<p class="feedback" aria-live="polite"></p></div>`}
-let practiceQs=[];function startPractice(){practiceQs=questions().slice(0,15);document.getElementById('practiceContent').innerHTML=practiceQs.map((q,i)=>renderQuestion(q,i,'p')).join('');document.querySelectorAll('#practiceContent .card').forEach((c,i)=>c.onchange=()=>{let chosen=c.querySelector('input:checked');let ok=chosen.value===practiceQs[i].answer;c.querySelector('.feedback').textContent=ok?'Correct!':'Not quite. Correct answer: '+practiceQs[i].answer;c.querySelector('.feedback').style.color=ok?'green':'#b22'})}
+let practiceQs=[];function startPractice(){practiceQs=questions().slice(0,50);document.getElementById('practiceContent').innerHTML=practiceQs.map((q,i)=>renderQuestion(q,i,'p')).join('');document.querySelectorAll('#practiceContent .card').forEach((c,i)=>c.onchange=()=>{let chosen=c.querySelector('input:checked');let ok=chosen.value===practiceQs[i].answer;c.querySelector('.feedback').textContent=ok?'Correct!':'Not quite. Correct answer: '+practiceQs[i].answer;c.querySelector('.feedback').style.color=ok?'green':'#b22'})}
 document.getElementById('restartPractice').onclick=startPractice;startPractice();
-const markers=['Mediterranean','Sahel','Southeast Asia','Caribbean','Scandinavia'];document.getElementById('mapQuestions').innerHTML=markers.map((_,i)=>`<div class="card"><label for="marker${i}">Marker ${i+1}</label><select id="marker${i}" style="padding:10px;width:100%;max-width:360px"><option value="">Select a region</option>${shuffle(markers).map(x=>`<option>${x}</option>`).join('')}</select></div>`).join('');
-document.getElementById('checkMaps').onclick=()=>{let score=markers.filter((m,i)=>document.getElementById('marker'+i).value===m).length;document.getElementById('mapResult').textContent=`Score: ${score}/5. Correct sequence: ${markers.join(', ')}.`};
 let examQs=[],remaining=900,interval=null,started=false;
 function updateTimer(){document.getElementById('timer').textContent=`${Math.floor(remaining/60).toString().padStart(2,'0')}:${(remaining%60).toString().padStart(2,'0')}`}
-document.getElementById('startExam').onclick=()=>{if(started)return;if(!document.getElementById('studentName').value.trim()){alert('Please enter your full name.');return}started=true;examQs=questions();remaining=900;updateTimer();document.getElementById('startExam').disabled=true;document.getElementById('studentName').disabled=true;document.getElementById('examResult').innerHTML='';document.getElementById('examContent').innerHTML=examQs.map((q,i)=>renderQuestion(q,i,'e')).join('');document.getElementById('submitExam').classList.remove('hidden');interval=setInterval(()=>{remaining--;updateTimer();if(remaining<=0)submitExam()},1000)};
+document.getElementById('startExam').onclick=()=>{if(started)return;if(!document.getElementById('studentName').value.trim()){alert('Please enter your full name.');return}started=true;let geographyQs=shuffle(bank.slice(0,30));let toolQs=shuffle(bank.slice(30));examQs=shuffle([...geographyQs.slice(0,18),...toolQs.slice(0,12)].map(x=>{let opts=shuffle(x.slice(1));return {q:x[0],answer:x[1],opts}}));remaining=900;updateTimer();document.getElementById('startExam').disabled=true;document.getElementById('studentName').disabled=true;document.getElementById('examResult').innerHTML='';document.getElementById('examContent').innerHTML=examQs.map((q,i)=>renderQuestion(q,i,'e')).join('');document.getElementById('submitExam').classList.remove('hidden');interval=setInterval(()=>{remaining--;updateTimer();if(remaining<=0)submitExam()},1000)};
 function submitExam(){if(!started)return;clearInterval(interval);started=false;let score=0;document.querySelectorAll('#examContent .card').forEach((c,i)=>{let selected=c.querySelector('input:checked');let correct=selected&&selected.value===examQs[i].answer;if(correct)score++;c.querySelector('.feedback').textContent=(correct?'Correct. ':'Incorrect. ')+'Answer: '+examQs[i].answer;c.querySelectorAll('input').forEach(x=>x.disabled=true)});document.getElementById('submitExam').classList.add('hidden');document.getElementById('examResult').innerHTML=`<div class="card"><h3>Exam completed!</h3><p><b>Student:</b> ${escapeHTML(document.getElementById('studentName').value)}</p><p><b>Score:</b> ${score}/30 (${Math.round(score/30*100)}%)</p><p>Review your answers above.</p><button onclick="window.print()">Print Results</button></div>`}
 function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 document.getElementById('submitExam').onclick=submitExam;
