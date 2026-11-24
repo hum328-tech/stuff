@@ -1,109 +1,291 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Geography Learning Lab</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Make Your Design Make Sense | Study Deck</title>
 <style>
-:root{font-family:Arial,sans-serif;color:#182b43;background:#eef4fb}*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(110deg,#123b68,#2479a8);color:white;padding:25px;text-align:center}main{max-width:1000px;margin:auto;padding:20px}nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}button{cursor:pointer;border:0;border-radius:9px;padding:12px 16px;font-weight:bold;background:#dce9f6;color:#143858}button:hover{filter:brightness(.95)}button.active,.primary{background:#1766a3;color:white}.panel{display:none;background:white;border-radius:14px;padding:22px;box-shadow:0 3px 16px #14385816}.panel.active{display:block}.card{border:1px solid #d5e0eb;border-radius:10px;padding:15px;margin:12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.muted{color:#54677c}.choice{display:block;width:100%;text-align:left;margin:8px 0;background:#edf3fa}.correct{background:#c8efd8!important}.wrong{background:#ffd8d8!important}.flash{min-height:190px;display:grid;place-items:center;text-align:center;background:#e7f3ff;border:2px solid #aacce6;border-radius:14px;padding:25px;font-size:1.35rem;cursor:pointer}.hidden{display:none}.map{width:100%;max-height:420px;border:1px solid #ccd9e8;border-radius:12px;background:#dceffb}input[type=text]{padding:11px;border:1px solid #a9bcd1;border-radius:8px;width:100%;max-width:420px}footer{text-align:center;padding:22px;color:#50637a}#timer{font-size:1.3rem;font-weight:bold}label{display:block;margin:8px 0}
-</style></head><body>
-<header><h1>🌎 Geography Learning Lab</h1><p>First Grade • Study Guide • Flashcards • Practice • Final Exam • Geography Tools</p></header>
-<main><nav id="tabs"><button class="active" data-tab="guide">Study Guide</button><button data-tab="flashcards">Flashcards</button><button data-tab="practice">Practice Quiz</button><button data-tab="exam">Final Exam</button></nav>
-<section class="panel active" id="guide"><h2>Study Guide</h2><p>Read each definition, study the examples, and then test your knowledge.</p><div id="guideContent" class="grid"></div><h3>World Regions</h3><div id="regionsContent" class="grid"></div><h3>Geography Tools and Weather Instruments</h3><p>Learn what each tool measures or helps us observe.</p><div id="toolsContent" class="grid"></div></section>
-<section class="panel" id="flashcards"><h2>Flashcards</h2><p>Click the card to reveal the answer.</p><p id="flashProgress"></p><div class="flash" id="flashCard" tabindex="0" role="button"></div><p><button id="prevFlash">Previous</button> <button id="flipFlash" class="primary">Flip Card</button> <button id="nextFlash">Next</button> <button id="shuffleFlash">Shuffle</button></p></section>
-<section class="panel" id="practice"><h2>Practice Quiz</h2><p>Answer 50 questions and receive immediate feedback. You can try again with shuffled questions.</p><div id="practiceContent"></div><button class="primary" id="restartPractice">New Practice</button></section>
-<section class="panel" id="exam"><h2>Final Exam — 30 Questions</h2><p>Enter your name, then start the timed exam. You have 15 minutes. Your answers are submitted automatically when time runs out.</p><label for="studentName">Student name</label><input id="studentName" type="text" placeholder="Full name"><p id="timer">15:00</p><button class="primary" id="startExam">Start Exam</button><div id="examContent"></div><button class="primary hidden" id="submitExam">Submit Exam</button><div id="examResult" aria-live="polite"></div></section></main><footer>Geography Learning Lab • Learn, practice, and explore!</footer>
+:root{--paper:#f8f4ea;--ink:#1b191c;--blue:#1837cf;--orange:#ff8455;--muted:#565158;--rule:#cfc8bb}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.45 system-ui,sans-serif;border-top:8px solid var(--blue)}main{max-width:1080px;margin:auto;padding:28px 32px 44px}.kicker,.tag,.count,footer{font:700 .75rem/1.4 ui-monospace,monospace;letter-spacing:.065em;text-transform:uppercase}.kicker,.tag{color:var(--blue)}h1{font-size:clamp(2.7rem,7vw,5.8rem);line-height:.94;letter-spacing:-.075em;margin:18px 0 12px;max-width:780px}header p{color:var(--muted);margin:16px 0 28px}nav{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:14px}button,select{font:inherit}button{cursor:pointer;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:3px;padding:9px 13px;font-weight:700}button:hover:not(:disabled){background:#e1e6ff}button[aria-pressed=true],.primary{background:var(--blue);color:#fff;border-color:var(--blue)}button.primary:hover:not(:disabled),button[aria-pressed=true]:hover:not(:disabled){background:#132ca2}button:disabled{cursor:default;opacity:.53}button:focus-visible,select:focus-visible{outline:3px solid #a24722;outline-offset:3px}.toolbar,.control,.meta{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.toolbar{padding:16px 0}.toolbar label{font-size:.9rem;font-weight:700}select{margin-left:8px;padding:7px 10px;border:1px solid var(--rule);background:white;color:var(--ink);max-width:100%}.stage{position:relative}.flash{display:grid;align-content:center;justify-items:start;gap:16px;text-align:left;width:100%;min-height:320px;padding:clamp(22px,6vw,64px);background:var(--blue);color:#fff;border:0;box-shadow:7px 7px 0 var(--orange);border-radius:0}.flash:hover:not(:disabled){background:#132ca2}.flash.back{background:#fff;color:var(--ink);box-shadow:7px 7px 0 var(--blue)}.flash.back:hover:not(:disabled){background:#fff}.flash .tag{color:inherit}.question{font-size:clamp(1.4rem,3.4vw,2.7rem);line-height:1.15;letter-spacing:-.035em;max-width:860px}.note{font-weight:400;max-width:700px}.hint{font-size:.82rem;font-weight:500;opacity:.9}.control{margin-top:22px}.cluster{display:flex;flex-wrap:wrap;gap:8px}.meta{margin:12px 0}.bar{height:5px;background:#dfd9cf;margin-bottom:13px}.bar span{display:block;height:100%;background:var(--blue)}.panel{padding:clamp(20px,4vw,36px);border:1px solid var(--rule);background:white}.panel h2{font-size:clamp(1.3rem,3vw,2.25rem);line-height:1.2;letter-spacing:-.033em;margin:12px 0 20px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}.option{text-align:left;display:flex;gap:10px;align-items:baseline}.option span{color:var(--blue);font-family:monospace}.option:disabled{opacity:1}.option.correct{background:#d9f1e5;border-color:#14603e}.option.incorrect{background:#ffe2d6;border-color:#a24722}.feedback{margin-top:12px;padding:12px 15px;background:#e7edff}.feedback p{margin:4px 0}.terms{display:grid;grid-template-columns:1fr 1fr;gap:13px}.term{padding:18px;background:white;border-top:2px solid var(--blue)}.term h2{font-size:1.15rem;margin:7px 0}.term p{font-size:.9rem;margin:0}.term p+p{margin-top:7px;color:var(--muted)}footer{margin-top:27px;padding-top:13px;border-top:1px solid var(--rule);color:var(--muted)}@media(max-width:600px){main{padding:20px 17px 32px}.answers,.terms{grid-template-columns:1fr}.flash{min-height:270px}.toolbar label{display:grid;gap:4px}select{margin:0}.control{align-items:flex-start}}
+.writing-form{display:flex;flex-wrap:wrap;gap:9px;align-items:end}.writing-form label{flex:1 1 260px;display:grid;gap:4px;font-weight:700}.writing-form input{padding:11px;font:inherit;border:1px solid var(--ink);border-radius:3px;min-width:0}.writing-form input:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.game-meta{display:flex;align-items:center;gap:14px}.lives{color:#9c2708;font-size:1.25rem;letter-spacing:.13em}.timer{font:700 1.25rem ui-monospace,monospace;font-variant-numeric:tabular-nums}.danger span{background:#c33e17}.burst{background:var(--orange);color:var(--ink);padding:12px 16px;font-weight:800;margin-top:14px}.game-ended{border-top:5px solid var(--orange)}
+.category-picker{margin:0 0 12px}.category-picker h2{font-size:1rem;margin:0 0 10px}.category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:8px}.category-grid button{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;font-size:.88rem}.category-grid small{font:inherit;opacity:.83;white-space:nowrap}.toolbar{padding:12px 0}
+</style>
+</head>
+<body><main>
+<header><div class="kicker">Public speaking / Final exam</div><h1>Make your design make sense.</h1><p>An interactive study deck for Graphic Design students.</p></header>
+<nav aria-label="Study mode">
+<button data-mode="cards" aria-pressed="true">Flashcards</button>
+<button data-mode="quiz" aria-pressed="false">Multiple choice</button>
+<button data-mode="writing" aria-pressed="false">Writing</button>
+<button data-mode="game" aria-pressed="false">💣 Bomb challenge</button>
+<button data-mode="review" aria-pressed="false">Review all</button>
+</nav>
+<section class="category-picker" aria-labelledby="category-heading">
+<h2 id="category-heading">Choose a category</h2>
+<div id="categories" class="category-grid" role="group" aria-labelledby="category-heading"></div>
+</section>
+<div class="toolbar"><div id="progress" class="count" aria-live="polite"></div></div>
+<section id="screen" aria-label="Study activity"></section>
+<footer>Based on The Art of Public Speaking · Stephen E. Lucas</footer>
+</main>
 <script>
-const features=[
-['Peninsula','Land surrounded by water on three sides.','Iberian Peninsula'],
-['Gulf','A large part of the sea that extends into the land.','Gulf of Mexico'],
-['Island','Land completely surrounded by water.','Madagascar'],
-['Archipelago','A group or chain of islands.','Philippines'],
-['Strait','A narrow waterway connecting two larger bodies of water.','Strait of Gibraltar'],
-['Isthmus','A narrow strip of land connecting two larger land areas.','Isthmus of Panama'],
-['Lake','A body of inland water surrounded by land.','Lake Victoria']];
-const toolsData=[
-['Thermometer','Measures air temperature.','Degrees Celsius (°C)'],
-['Barometer','Measures atmospheric air pressure.','Hectopascals (hPa)'],
-['Anemometer','Measures wind speed.','Kilometers per hour (km/h) or meters per second (m/s)'],
-['Wind vane','Shows the direction the wind comes from.','North, south, east, or west'],
-['Hygrometer','Measures relative humidity in the air.','Percent (%)'],
-['Rain gauge','Measures the amount of rainfall.','Millimeters (mm)'],
-['Compass','Shows directions using Earth’s magnetic field.','Cardinal directions'],
-['GPS receiver','Helps determine location using satellite signals.','Latitude and longitude'],
-['Map','Represents places and geographic features on a flat surface.','Symbols, scale, and legend'],
-['Globe','Represents Earth as a three-dimensional model.','Continents and oceans'],
-['Seismograph','Records ground movement caused by seismic waves.','Seismic recordings']];
-const regions=[
-['Mediterranean','Around the Mediterranean Sea, between southern Europe, northern Africa, and western Asia.'],
-['Sahel','A semi-arid belt south of the Sahara Desert in Africa.'],
-['Southeast Asia','A region east of India and south of China, including mainland and island countries.'],
-['Caribbean','A region around the Caribbean Sea, including many islands and nearby coastal areas.'],
-['Scandinavia','A northern European region commonly referring to Norway, Sweden, and Denmark.']];
-document.getElementById('guideContent').innerHTML=features.map(x=>`<article class="card"><h3>${x[0]}</h3><p>${x[1]}</p><p class="muted"><b>Example:</b> ${x[2]}</p></article>`).join('');
-document.getElementById('toolsContent').innerHTML=toolsData.map(x=>`<article class="card"><h3>${x[0]}</h3><p>${x[1]}</p><p class="muted"><b>Units or use:</b> ${x[2]}</p></article>`).join('');
-document.getElementById('regionsContent').innerHTML=regions.map(x=>`<article class="card"><h3>${x[0]}</h3><p>${x[1]}</p></article>`).join('');
-document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#tabs button,.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active')});
-const deck=[...features.map(x=>({q:'What is a '+x[0].toLowerCase()+'?',a:x[1]})),...regions.map(x=>({q:'Where is '+x[0]+'?',a:x[1]})),...toolsData.map(x=>({q:'What does a '+x[0].toLowerCase()+' do?',a:x[1]}))];let cards=[...deck],cardIndex=0,flipped=false;
-function showFlash(){document.getElementById('flashProgress').textContent=`Card ${cardIndex+1} of ${cards.length}`;document.getElementById('flashCard').textContent=flipped?cards[cardIndex].a:cards[cardIndex].q}
-function flip(){flipped=!flipped;showFlash()}document.getElementById('flashCard').onclick=flip;document.getElementById('flashCard').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}};
-document.getElementById('flipFlash').onclick=flip;document.getElementById('prevFlash').onclick=()=>{cardIndex=(cardIndex+cards.length-1)%cards.length;flipped=false;showFlash()};document.getElementById('nextFlash').onclick=()=>{cardIndex=(cardIndex+1)%cards.length;flipped=false;showFlash()};document.getElementById('shuffleFlash').onclick=()=>{cards=shuffle(cards);cardIndex=0;flipped=false;showFlash()};showFlash();
-function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
-const bank=[
-['Which landform is surrounded by water on three sides?','Peninsula','Island','Strait','Lake'],
-['Which is a group of islands?','Archipelago','Isthmus','Gulf','Peninsula'],
-['Which waterway connects two larger bodies of water?','Strait','Lake','Isthmus','Island'],
-['Which narrow strip of land connects two larger land areas?','Isthmus','Strait','Gulf','Archipelago'],
-['Which feature is inland water surrounded by land?','Lake','Gulf','Strait','Peninsula'],
-['Which feature is a large inlet of the sea?','Gulf','Island','Isthmus','Lake'],
-['Which feature is completely surrounded by water?','Island','Peninsula','Gulf','Isthmus'],
-['What is Madagascar?','Island','Strait','Isthmus','Gulf'],
-['What is the Philippines?','Archipelago','Lake','Strait','Isthmus'],
-['What is the Gulf of Mexico?','Gulf','Peninsula','Island','Lake'],
-['What is the Strait of Gibraltar?','Strait','Isthmus','Lake','Gulf'],
-['What is the Isthmus of Panama?','Isthmus','Archipelago','Island','Strait'],
-['What is the Iberian Peninsula?','Peninsula','Lake','Gulf','Island'],
-['What is Lake Victoria?','Lake','Strait','Gulf','Peninsula'],
-['Which region lies south of the Sahara Desert?','Sahel','Scandinavia','Caribbean','Mediterranean'],
-['Which region surrounds the Caribbean Sea?','Caribbean','Sahel','Scandinavia','Southeast Asia'],
-['Which region includes Norway, Sweden, and Denmark?','Scandinavia','Caribbean','Sahel','Mediterranean'],
-['Which region lies east of India and south of China?','Southeast Asia','Scandinavia','Sahel','Caribbean'],
-['Which sea gives the Mediterranean region its name?','Mediterranean Sea','Baltic Sea','Caribbean Sea','Red Sea'],
-['Which continent contains the Sahel?','Africa','Europe','Oceania','South America'],
-['Which region includes both mainland and island countries?','Southeast Asia','Sahel','Scandinavia','Antarctica'],
-['Which region is known for a semi-arid climate?','Sahel','Caribbean','Scandinavia','Mediterranean'],
-['Which is a country in Scandinavia?','Norway','Brazil','Egypt','Thailand'],
-['Which is a country in Southeast Asia?','Thailand','Sweden','Morocco','Mexico'],
-['Which island is in the Caribbean?','Jamaica','Madagascar','Greenland','Tasmania'],
-['Which continent borders the Mediterranean Sea to the south?','Africa','Oceania','Antarctica','North America'],
-['A narrow water passage between land areas is a...','Strait','Isthmus','Peninsula','Lake'],
-['A narrow land bridge between larger land areas is an...','Isthmus','Archipelago','Strait','Gulf'],
-['Which feature can contain many separate islands?','Archipelago','Peninsula','Lake','Isthmus'],
-['Which pair correctly matches a feature and an example?','Lake — Lake Victoria','Gulf — Madagascar','Strait — Philippines','Isthmus — Gulf of Mexico'],
-['Which instrument measures air temperature?','Thermometer','Barometer','Anemometer','Hygrometer'],
-['Which instrument measures air pressure?','Barometer','Rain gauge','Wind vane','Compass'],
-['Which instrument measures wind speed?','Anemometer','Thermometer','Hygrometer','Globe'],
-['Which instrument measures relative humidity?','Hygrometer','Barometer','Compass','Seismograph'],
-['Which instrument measures rainfall?','Rain gauge','Wind vane','Thermometer','GPS receiver'],
-['Which instrument indicates wind direction?','Wind vane','Rain gauge','Anemometer','Barometer'],
-['Which tool helps you find cardinal directions?','Compass','Rain gauge','Thermometer','Hygrometer'],
-['Which tool uses satellite signals to determine location?','GPS receiver','Barometer','Wind vane','Rain gauge'],
-['Which tool is a three-dimensional model of Earth?','Globe','Map','Compass','Thermometer'],
-['Which tool represents places on a flat surface?','Map','Globe','Rain gauge','Anemometer'],
-['Which instrument records ground movement from seismic waves?','Seismograph','Hygrometer','Thermometer','Wind vane'],
-['What unit is commonly used for rainfall?','Millimeters','Degrees Celsius','Kilometers per hour','Percent'],
-['What unit is commonly used for relative humidity?','Percent','Millimeters','Degrees Celsius','Hectopascals'],
-['Which tool would you use to compare wind speed on two days?','Anemometer','Wind vane','Barometer','Compass'],
-['Which tool would you use to compare atmospheric pressure on two days?','Barometer','Hygrometer','Rain gauge','GPS receiver'],
-['A student wants to record the amount of rain during a storm. Which tool is best?','Rain gauge','Thermometer','Compass','Wind vane'],
-['Which instrument could you make using a jar, balloon, and straw?','Barometer','GPS receiver','Seismograph','Globe'],
-['What does a map legend explain?','Map symbols','Air pressure','Wind speed','Rainfall amount'],
-['What does a map scale help you estimate?','Real-world distance','Humidity','Air temperature','Wind direction'],
-['Which pair correctly matches a tool and its purpose?','Hygrometer — humidity','Barometer — rainfall','Thermometer — wind speed','Compass — air pressure']];
-function questions(){return shuffle(bank).map(x=>{let opts=shuffle(x.slice(1));return {q:x[0],answer:x[1],opts}})}
-function renderQuestion(q,i,mode){return `<div class="card" data-answer="${q.answer}"><p><b>${i+1}. ${q.q}</b></p>${q.opts.map(o=>`<label><input type="radio" name="${mode}${i}" value="${o}"> ${o}</label>`).join('')}<p class="feedback" aria-live="polite"></p></div>`}
-let practiceQs=[];function startPractice(){practiceQs=questions().slice(0,50);document.getElementById('practiceContent').innerHTML=practiceQs.map((q,i)=>renderQuestion(q,i,'p')).join('');document.querySelectorAll('#practiceContent .card').forEach((c,i)=>c.onchange=()=>{let chosen=c.querySelector('input:checked');let ok=chosen.value===practiceQs[i].answer;c.querySelector('.feedback').textContent=ok?'Correct!':'Not quite. Correct answer: '+practiceQs[i].answer;c.querySelector('.feedback').style.color=ok?'green':'#b22'})}
-document.getElementById('restartPractice').onclick=startPractice;startPractice();
-let examQs=[],remaining=900,interval=null,started=false;
-function updateTimer(){document.getElementById('timer').textContent=`${Math.floor(remaining/60).toString().padStart(2,'0')}:${(remaining%60).toString().padStart(2,'0')}`}
-document.getElementById('startExam').onclick=()=>{if(started)return;if(!document.getElementById('studentName').value.trim()){alert('Please enter your full name.');return}started=true;let geographyQs=shuffle(bank.slice(0,30));let toolQs=shuffle(bank.slice(30));examQs=shuffle([...geographyQs.slice(0,18),...toolQs.slice(0,12)].map(x=>{let opts=shuffle(x.slice(1));return {q:x[0],answer:x[1],opts}}));remaining=900;updateTimer();document.getElementById('startExam').disabled=true;document.getElementById('studentName').disabled=true;document.getElementById('examResult').innerHTML='';document.getElementById('examContent').innerHTML=examQs.map((q,i)=>renderQuestion(q,i,'e')).join('');document.getElementById('submitExam').classList.remove('hidden');interval=setInterval(()=>{remaining--;updateTimer();if(remaining<=0)submitExam()},1000)};
-function submitExam(){if(!started)return;clearInterval(interval);started=false;let score=0;document.querySelectorAll('#examContent .card').forEach((c,i)=>{let selected=c.querySelector('input:checked');let correct=selected&&selected.value===examQs[i].answer;if(correct)score++;c.querySelector('.feedback').textContent=(correct?'Correct. ':'Incorrect. ')+'Answer: '+examQs[i].answer;c.querySelectorAll('input').forEach(x=>x.disabled=true)});document.getElementById('submitExam').classList.add('hidden');document.getElementById('examResult').innerHTML=`<div class="card"><h3>Exam completed!</h3><p><b>Student:</b> ${escapeHTML(document.getElementById('studentName').value)}</p><p><b>Score:</b> ${score}/30 (${Math.round(score/30*100)}%)</p><p>Review your answers above.</p><button onclick="window.print()">Print Results</button></div>`}
-function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-document.getElementById('submitExam').onclick=submitExam;
-</script></body></html>
+const data = [{"id": 1, "ch": 1, "term": "Speaker", "prompt": "Who presents the oral message in a speech?", "note": "A design student pitching a poster is the speaker."}, {"id": 2, "ch": 1, "term": "Message", "prompt": "What do we call everything the speaker communicates?", "note": "The poster concept and the explanation of its typography are both part of the message."}, {"id": 3, "ch": 1, "term": "Channel", "prompt": "What is the means through which a message is communicated?", "note": "A video call, a live room, or a recording can carry the message."}, {"id": 4, "ch": 1, "term": "Listener", "prompt": "Who receives and interprets the message?", "note": "The classmates or client hearing a pitch are listeners."}, {"id": 5, "ch": 1, "term": "Feedback", "prompt": "What do we call the responses listeners send back, often without words?", "note": "A puzzled look or a nod can tell the speaker whether to clarify. Speakers adapt to feedback in both public speaking and conversation."}, {"id": 6, "ch": 1, "term": "Frame of reference", "prompt": "What includes a listener’s experiences, knowledge, goals, values, and attitudes?", "note": "A client who has struggled with campus navigation may interpret a wayfinding pitch differently from someone who knows the campus."}, {"id": 7, "ch": 1, "term": "Positive nervousness", "prompt": "What is controlled nervous energy that can help a speaker perform?", "note": "The speaker channels that energy into an alert, expressive delivery."}, {"id": 8, "ch": 1, "term": "Visualization", "prompt": "What is vividly imagining yourself giving a successful speech?", "note": "Picture your first line, the pause that follows, and the audience looking at the poster."}, {"id": 9, "ch": 1, "term": "Critical thinking", "prompt": "What skill helps you evaluate evidence, connections among ideas, and the difference between fact and opinion?", "note": "Ask how a test was run before accepting a claim about which poster worked best."}, {"id": 10, "ch": 1, "term": "Ethnocentrism", "prompt": "What is the belief that your own group or culture is superior to others?", "note": "Check assumptions about how audiences from different backgrounds interpret colors or symbols."}, {"id": 11, "ch": 2, "term": "Ethics", "prompt": "What is the study of right and wrong?", "note": "A speaker uses ethical principles to evaluate both their goal and their methods."}, {"id": 12, "ch": 2, "term": "Ethical decision", "prompt": "What is a judgment that weighs a possible action against standards or principles?", "note": "Even a goal with no clear-cut answer deserves ethical scrutiny."}, {"id": 13, "ch": 2, "term": "Bill of Rights", "prompt": "What name is given to the first ten amendments to the U.S. Constitution?", "note": "The First Amendment protects freedom of speech."}, {"id": 14, "ch": 2, "term": "Name-calling", "prompt": "What is using language to demean or degrade a person or group?", "note": "Criticize the design’s readability rather than insulting its designer."}, {"id": 15, "ch": 2, "term": "Paraphrase", "prompt": "What is restating someone else’s idea in your own words?", "note": "Keep the meaning accurate and credit the source."}, {"id": 16, "ch": 2, "term": "Misrepresentation of evidence", "prompt": "What do altering statistics, quoting out of context, and presenting an exceptional case as typical have in common?", "note": "Keep statistics intact, give quotations their context, and describe unusual cases as unusual."}, {"id": 17, "ch": 4, "term": "Attention-getter", "prompt": "In Fearless, what is the function of the opening about fear, monsters, and the unknown?", "note": "It gains attention and helps the audience relate to Bella’s story."}, {"id": 18, "ch": 4, "term": "Athletics, travel, and taking opportunities", "prompt": "Which three main points develop Bella’s fearlessness in Fearless?", "note": "Think of three categories. Soccer is an example of athletics."}, {"id": 19, "ch": 4, "term": "An image of her grandmother’s courtyard", "prompt": "What visual hook opens The Courtyard?", "note": "The image draws listeners into the story and establishes its setting."}, {"id": 20, "ch": 4, "term": "Resilience, intelligence, and curiosity", "prompt": "Which three traits organize The Inevitability of Evette?", "note": "Ask which trait each story or example illustrates."}, {"id": 21, "ch": 4, "term": "A unifying closing thought", "prompt": "What does the conclusion of Twists and Turns accomplish by returning to the idea that experiences shape who we are?", "note": "It ties the speech together and leaves the audience with an idea to consider."}, {"id": 22, "ch": 4, "term": "Preview", "prompt": "What is the function of “First I’ll show the route. Then I’ll explain how we tested it”?", "note": "A preview tells listeners which main points are coming."}, {"id": 23, "ch": 5, "term": "Inform", "prompt": "Which general purpose calls for acting as a teacher or lecturer?", "note": "Explain how a wayfinding system works in clear, accurate terms."}, {"id": 24, "ch": 5, "term": "Persuade", "prompt": "Which general purpose aims to shape audience beliefs, attitudes, or actions?", "note": "Make a case for adopting a new set of wayfinding signs."}, {"id": 25, "ch": 5, "term": "Specific purpose", "prompt": "What identifies the audience and one achievable outcome for the speech?", "note": "Write it before the central idea. “To persuade the campus committee to approve clearer signs” is a specific purpose phrased as a statement."}, {"id": 26, "ch": 5, "term": "Central idea", "prompt": "What is the one-sentence statement that sums up the main points of a speech?", "note": "Use a complete, literal statement that suits the audience and time limit. “Color-coded signs at entrances and junctions would help visitors find the studios.”"}, {"id": 27, "ch": 6, "term": "Audience-centeredness", "prompt": "What does it mean to keep your listeners foremost in mind throughout preparation and delivery?", "note": "Give every audience your best effort. Check relevance, language, and examples as you plan."}, {"id": 28, "ch": 6, "term": "Demographic analysis", "prompt": "Which analysis considers age, culture, religion, and group membership?", "note": "These characteristics can guide questions. Avoid assuming every member of a group thinks alike."}, {"id": 29, "ch": 6, "term": "Situational analysis", "prompt": "Which analysis considers audience size, setting, and what listeners know or think about the topic?", "note": "For a technical topic, check the audience’s existing knowledge before choosing your level of detail."}, {"id": 30, "ch": 6, "term": "Fixed-alternative question", "prompt": "What type of question gives the audience a set of options, such as yes or no?", "note": "“Have you used the campus map? Yes / No.”"}, {"id": 31, "ch": 6, "term": "Scale question", "prompt": "What type of question asks for a response at fixed points along a range?", "note": "“How confident are you finding the studio? Rate it from 1 to 5.”"}, {"id": 32, "ch": 6, "term": "Open-ended question", "prompt": "What type of question lets respondents answer in their own words?", "note": "“Where do you usually get lost?”"}, {"id": 33, "ch": 6, "term": "Audience adaptation", "prompt": "What skill do you use when changing your opening, examples, wording, pace, or tone for particular listeners?", "note": "For classmates, use familiar routes. For a client, define technical terms and explain how the solution will be tested."}, {"id": 34, "ch": 7, "term": "Reference work", "prompt": "Which resource gives definitions or background at the start of research?", "note": "An encyclopedia entry can introduce accessible wayfinding and suggest search terms."}, {"id": 35, "ch": 7, "term": "Newspaper and periodical database", "prompt": "Which resource helps locate news stories and magazine articles?", "note": "Use reporting to find local examples. Academic databases can help locate scholarly studies."}, {"id": 36, "ch": 7, "term": "Sponsoring organization", "prompt": "Who should you identify if a web document has no named author?", "note": "Find which organization is responsible, then evaluate its credibility and evidence."}, {"id": 37, "ch": 7, "term": "Full article", "prompt": "What should you read before citing a study whose abstract you found?", "note": "Read the methods, results, and limitations. The abstract is only a summary."}, {"id": 38, "ch": 7, "term": "Preliminary bibliography", "prompt": "What is the early list of works that could help you prepare your speech?", "note": "Save publication details as you search and decide what to keep after reading."}, {"id": 39, "ch": 7, "term": "Prompt interview notes", "prompt": "When should you review and transcribe notes from a research interview?", "note": "As soon as possible, while details and context are still fresh."}, {"id": 40, "ch": 7, "term": "Research worksheet", "prompt": "What records each article’s citation, how you found it, and the point it will support?", "note": "Prepare three articles with full citations in the assigned style. Record the database or search method and how each article helps."}, {"id": 41, "ch": 17, "term": "Credibility", "prompt": "What is the audience’s perception of whether a speaker is qualified to speak on the subject?", "note": "Competence and character are the two biggest factors. Can the audience trust your knowledge and judgment?"}, {"id": 42, "ch": 17, "term": "Initial credibility", "prompt": "What kind of credibility exists before the speaker begins?", "note": "The audience may know the speaker’s experience before hearing the pitch."}, {"id": 43, "ch": 17, "term": "Derived credibility", "prompt": "What kind of credibility comes from what the speaker says and does during the speech?", "note": "Explaining how you tested a design can build trust during a pitch."}, {"id": 44, "ch": 17, "term": "Terminal credibility", "prompt": "What kind of credibility is the audience’s overall judgment at the end?", "note": "It reflects what listeners brought in and what they experienced during the speech."}, {"id": 45, "ch": 17, "term": "Specific evidence", "prompt": "Which kind of evidence is generally more persuasive than a vague claim?", "note": "“Eight out of ten testers found Studio B” gives a clearer picture than “Most people found it,” provided the data is accurate."}, {"id": 46, "ch": 17, "term": "Reasoning", "prompt": "What is the process of drawing a conclusion based on evidence?", "note": "Evidence gives the facts. Reasoning explains why they support your claim."}, {"id": 47, "ch": 17, "term": "Reasoning from specific instances", "prompt": "What type of reasoning goes from several particular observations to a general conclusion?", "note": "Repeated navigation problems across several buildings suggest a broader signage issue."}, {"id": 48, "ch": 17, "term": "Reasoning from principle", "prompt": "What type of reasoning applies a general rule to a particular case?", "note": "If every public building requires accessible signs, that rule applies to this campus building."}, {"id": 49, "ch": 17, "term": "Logos", "prompt": "Which Aristotelian appeal uses logic and reasoning?", "note": "Explain the test results and how they support the proposed change."}, {"id": 50, "ch": 17, "term": "Pathos", "prompt": "Which Aristotelian appeal draws on emotion?", "note": "Tell a story about a visitor who misses the start of class after getting lost."}, {"id": 51, "ch": 17, "term": "False cause", "prompt": "Which fallacy assumes a cause from sequence alone?", "note": "Late arrivals dropped after signs changed. A schedule change might explain some or all of the drop."}, {"id": 52, "ch": 17, "term": "Invalid analogy", "prompt": "Which fallacy uses a comparison that fails in a relevant way?", "note": "A tiny gallery’s signage may work poorly across a sprawling campus."}, {"id": 53, "ch": 17, "term": "Slippery slope", "prompt": "Which fallacy assumes an unsupported chain of consequences?", "note": "One unclear sign does not by itself prove the entire campus will become impossible to navigate."}, {"id": 54, "ch": 17, "term": "Appeal to tradition", "prompt": "Which fallacy treats long-standing practice as proof that it should continue?", "note": "“We have always used this typeface” supplies no evidence about readability."}];
+const screen = document.querySelector('#screen');
+const categoryButtons = document.querySelector('#categories');
+const progress = document.querySelector('#progress');
+const storageKey = 'public-speaking-final-mastered-v1';
+let mastered = new Set();
+try { const saved = JSON.parse(localStorage.getItem(storageKey) || '[]'); if (Array.isArray(saved)) mastered = new Set(saved); } catch {}
+const categories = [
+  {id:'communication',name:'Communication',cards:data.filter(card=>card.ch===1)},
+  {id:'ethics',name:'Ethics',cards:data.filter(card=>card.ch===2)},
+  {id:'structure',name:'Speech Structure & Examples',cards:data.filter(card=>card.ch===4)},
+  {id:'purpose',name:'Topic & Purpose',cards:data.filter(card=>card.ch===5)},
+  {id:'audience',name:'Audience Analysis',cards:data.filter(card=>card.ch===6)},
+  {id:'research',name:'Research & Sources',cards:data.filter(card=>card.ch===7)},
+  {id:'credibility',name:'Credibility & Appeals',cards:data.filter(card=>[41,42,43,44,45,49,50].includes(card.id))},
+  {id:'reasoning',name:'Reasoning & Fallacies',cards:data.filter(card=>[46,47,48,51,52,53,54].includes(card.id))},
+  {id:'all',name:'All Cards',cards:data}
+];
+let categoryId=categories[0].id;
+for(const category of categories){
+  const item=document.createElement('button');
+  item.type='button';
+  item.dataset.category=category.id;
+  const name=document.createElement('span');
+  name.textContent=category.name;
+  const count=document.createElement('small');
+  count.textContent=String(category.cards.length);
+  item.append(name,count);
+  categoryButtons.append(item);
+}
+categoryButtons.addEventListener('click',event=>{
+  const item=event.target.closest('[data-category]');
+  if(!item||categoryId===item.dataset.category)return;
+  categoryId=item.dataset.category;
+  changeSelection();
+});
+const selected=()=>categories.find(category=>category.id===categoryId).cards;
+const label=card=>categories.find(category=>category.cards.includes(card)).name;
+function shuffle(items) {
+  const result = [...items];
+  for (let i=result.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [result[i],result[j]]=[result[j],result[i]]; }
+  return result;
+}
+let mode='cards', deck=selected(), index=0, flipped=false, onlyNew=false;
+let quiz=null, writing=null, game=null, ticker=null;
+const normalize = value => value.normalize('NFKD').toLowerCase().replace(/[’']/g,'').replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim().replace(/^(the|an|a) /,'');
+const aliases = {
+  'Attention-getter':['hook','gain attention','get attention'],
+  'Athletics, travel, and taking opportunities':['sports travel and taking opportunities','athletics traveling and taking opportunities','athletics travel and seizing opportunities'],
+  'An image of her grandmother’s courtyard':['photo of her grandmothers courtyard','picture of her grandmothers courtyard'],
+  'A unifying closing thought':['unifying conclusion','tie the speech together'],
+  'Prompt interview notes':['as soon as possible','immediately','right away','soon after the interview'],
+  'Misrepresentation of evidence':['misrepresenting evidence','distorting evidence'],
+  'Newspaper and periodical database':['newspaper database','periodical database'],
+  'Full article':['entire article','full text','full study'],
+  'Ethical decision':['ethical judgment'],
+  'Name-calling':['name calling']
+};
+function accepted(card,answer){
+  const forms=[card.term,...(aliases[card.term]||[])].map(normalize);
+  const typed=normalize(answer);
+  return forms.includes(typed)||forms.some(form=>form.replace(/ and /g,' ')===typed.replace(/ and /g,' '));
+}
+function choices(card){
+  const same=shuffle(data.filter(c=>c.ch===card.ch&&c.id!==card.id));
+  const other=shuffle(data.filter(c=>c.ch!==card.ch));
+  return shuffle([card,...same.concat(other).slice(0,3)]);
+}
+const esc = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function button(text,action,classes='',disabled=false){return '<button class="'+classes+'" data-action="'+action+'"'+(disabled?' disabled':'')+'>'+esc(text)+'</button>';}
+function resetDeck(){ deck=selected().filter(card=>!onlyNew||!mastered.has(card.id));index=0;flipped=false; }
+function move(by){ index=(index+by+deck.length)%deck.length;flipped=false; }
+function updateProgress(){ const all=selected();progress.textContent=all.filter(c=>mastered.has(c.id)).length+' / '+all.length+' mastered'; }
+function renderCards(){
+  const filter=button(onlyNew?'Show all cards':'Study unmastered','filter');
+  if(!deck.length){screen.innerHTML='<div class="panel"><h2>You’ve mastered all cards in this selection.</h2>'+filter+'</div>';return;}
+  const card=deck[index];
+  const known=mastered.has(card.id);
+  screen.innerHTML='<div class="meta"><span class="count">Card '+(index+1)+' / '+deck.length+'</span>'+filter+'</div>'+
+    '<button class="flash '+(flipped?'back':'')+'" data-action="flip" id="flash">'+
+    '<span class="tag">'+esc(label(card))+(known?' / mastered':'')+'</span>'+
+    '<span class="question">'+esc(flipped?card.term:card.prompt)+'</span>'+
+    (flipped?'<span class="note">'+esc(card.note)+'</span>':'')+
+    '<span class="hint">Click or tap to flip</span></button>'+
+    '<div class="control"><div class="cluster">'+button('← Previous','prev','',deck.length<2)+button('Next →','next','',deck.length<2)+button('Shuffle','shuffle','',deck.length<2)+'</div>'+
+    button(known?'Mark unmastered':'Mark mastered','master','primary')+'</div>';
+}
+function startQuiz(cards){
+  const items=shuffle(cards).slice(0,categoryId==='all'?14:12);
+  quiz={items:items.map(card=>({card,options:choices(card)})),index:0,choice:null,score:0,missed:[]};
+}
+function renderQuiz(){
+  if(!quiz){
+    const count=Math.min(selected().length,categoryId==='all'?14:12);
+    screen.innerHTML='<div class="panel"><div class="tag">Multiple choice</div><h2>Practice with '+count+' questions</h2><p>Choose the best answer and read the explanation before moving on.</p>'+button('Start quiz','start','primary')+'</div>';
+    return;
+  }
+  const {items,index,choice,score,missed}=quiz;
+  if(index===items.length){
+    screen.innerHTML='<div class="panel"><div class="tag">Quiz complete</div><h2>'+score+' / '+items.length+' correct</h2><div class="cluster">'+button('New round','start','primary')+
+      (missed.length?button('Retry '+missed.length+' missed','retry'):'')+'</div>'+
+      (missed.length?'<h3>Review these concepts</h3><div class="terms">'+missed.map(termTile).join('')+'</div>':'')+'</div>';
+    return;
+  }
+  const {card,options}=items[index];
+  screen.innerHTML='<div class="meta"><span class="count">Question '+(index+1)+' / '+items.length+'</span><span class="tag">'+esc(label(card))+'</span></div>'+
+    '<div class="bar" aria-hidden="true"><span style="width:'+(100*(index+(choice!==null))/items.length)+'%"></span></div>'+
+    '<div class="panel"><h2>'+esc(card.prompt)+'</h2><div class="answers">'+options.map((option,i)=>{
+      const style=choice===null?'':option.id===card.id?' correct':choice===option.id?' incorrect':'';
+      return '<button class="option'+style+'" data-action="pick" data-id="'+option.id+'"'+(choice===null?'':' disabled')+'><span>'+String.fromCharCode(65+i)+'</span>'+esc(option.term)+'</button>';
+    }).join('')+'</div>'+
+    (choice===null?'':'<div class="feedback" role="status"><strong>'+esc(choice===card.id?'Correct.':'Answer: '+card.term)+'</strong><p>'+esc(card.note)+'</p></div><div class="control">'+button(index+1===items.length?'See results':'Next question →','advance','primary')+'</div>')+'</div>';
+}
+function renderWriting(){
+  if(!writing){
+    screen.innerHTML='<div class="panel"><h2>Write the answer</h2><p>Type the English term or short answer. Capitalization and punctuation are flexible.</p>'+button('Start writing','write-start','primary')+'</div>';return;
+  }
+  const {items,index,answer,score,missed}=writing;
+  if(index===items.length){
+    screen.innerHTML='<div class="panel"><h2>'+score+' / '+items.length+' correct</h2><div class="cluster">'+button('New round','write-start','primary')+
+      (missed.length?button('Retry missed answers','write-retry'):'')+'</div>'+
+      (missed.length?'<h3>Review these answers</h3><div class="terms">'+missed.map(termTile).join('')+'</div>':'')+'</div>';return;
+  }
+  const card=items[index];
+  screen.innerHTML='<div class="meta"><span class="count">Question '+(index+1)+' / '+items.length+'</span><span class="tag">'+esc(label(card))+'</span></div>'+
+    '<div class="panel"><h2>'+esc(card.prompt)+'</h2>'+
+    (answer===null?'<form id="writing-form" class="writing-form"><label>Your answer<input name="response" id="writing-answer" required maxlength="180" autocomplete="off" spellcheck="false"></label><button class="primary" type="submit">Check answer</button></form>':
+    '<div class="feedback" role="status"><strong>'+esc(accepted(card,answer)?'Correct.':'Expected answer: '+card.term)+'</strong><p>Your answer: '+esc(answer)+'</p><p>'+esc(card.note)+'</p></div><div class="control">'+button(index+1===items.length?'See results':'Next question →','write-next','primary')+'</div>')+'</div>';
+}
+function startWriting(cards){
+  writing={items:shuffle(cards).slice(0,12),index:0,answer:null,score:0,missed:[]};
+}
+function stopClock(){clearInterval(ticker);ticker=null;}
+function beginGame(){
+  stopClock();
+  game={items:shuffle(selected()).map(card=>({card,options:choices(card)})),index:0,lives:3,score:0,result:null,deadline:0};
+  nextBomb();
+}
+function nextBomb(){
+  stopClock();
+  game.result=null;
+  game.deadline=performance.now()+5000;
+  render();
+  ticker=setInterval(tick,40);
+}
+function tick(){
+  if(mode!=='game'||!game||game.result!==null){stopClock();return;}
+  const ms=Math.max(0,game.deadline-performance.now());
+  if(ms===0){finishBomb(null);return;}
+  screen.querySelector('#seconds').textContent=(Math.ceil(ms/100)/10).toFixed(1)+' s';
+  screen.querySelector('#fuse').style.width=(ms/50)+'%';
+}
+function finishBomb(choice){
+  if(!game||game.result!==null)return;
+  stopClock();
+  const card=game.items[game.index].card;
+  if(performance.now()>=game.deadline)choice=null;
+  if(choice===card.id)game.score++;
+  else game.lives--;
+  game.result={choice,correct:choice===card.id};
+  render();
+  screen.querySelector('[data-action="bomb-next"],[data-action="bomb-start"]')?.focus({preventScroll:true});
+}
+function renderGame(){
+  if(!game){
+    screen.innerHTML='<div class="panel"><div class="tag">💣 Speed round</div><h2>Defuse the bomb</h2><p>You have three lives and five seconds per question. A wrong answer or an expired timer costs one life.</p>'+button('Start challenge','bomb-start','primary')+'</div>';return;
+  }
+  const {items,index,lives,score,result}=game;
+  const {card,options}=items[index];
+  const done=result&&(lives===0||index+1===items.length);
+  const status=result?(result.correct?'Bomb defused.':result.choice===null?'💥 Time’s up. The bomb exploded.':'💥 Wrong answer. The bomb exploded.'):'';
+  screen.innerHTML='<div class="meta"><span class="count">Question '+(index+1)+' / '+items.length+'</span><div class="game-meta">'+
+    '<span class="lives" aria-label="'+lives+' of 3 lives remaining">'+('♥'.repeat(lives)+'♡'.repeat(3-lives))+'</span>'+
+    '<span class="timer" id="seconds">'+(result?'':'5.0 s')+'</span></div></div>'+
+    '<div class="bar danger" aria-hidden="true"><span style="width:'+(result?'0':'100')+'%" id="fuse"></span></div>'+
+    '<div class="panel'+(done?' game-ended':'')+'"><div class="tag">'+esc(label(card))+'</div><h2>'+esc(card.prompt)+'</h2>'+
+    (result?'<div class="'+(result.correct?'feedback':'burst')+'" role="status">'+esc(status)+'</div><p><strong>'+esc(card.term)+'</strong> · '+esc(card.note)+'</p>':
+      '<div class="answers">'+options.map((o,i)=>'<button class="option" data-action="bomb-pick" data-id="'+o.id+'"><span>'+String.fromCharCode(65+i)+'</span>'+esc(o.term)+'</button>').join('')+'</div>')+
+    (done?'<h3>'+(lives===0?'Game over':'Challenge complete')+' · '+score+' correct</h3>'+button('Play again','bomb-start','primary'):
+      result?button('Next bomb →','bomb-next','primary'):'')+'</div>';
+}
+function termTile(card){return '<article class="term"><div class="tag">'+esc(label(card))+'</div><h2>'+esc(card.term)+'</h2><p>'+esc(card.prompt)+'</p><p>'+esc(card.note)+'</p></article>';}
+function render(){
+  for(const item of categoryButtons.children)item.setAttribute('aria-pressed',String(categoryId===item.dataset.category));
+  updateProgress();
+  if(mode==='cards') renderCards();
+  if(mode==='quiz') renderQuiz();
+  if(mode==='writing') renderWriting();
+  if(mode==='game') renderGame();
+  if(mode==='review') screen.innerHTML='<div class="terms">'+selected().map(termTile).join('')+'</div>';
+}
+document.querySelector('nav').addEventListener('click',e=>{
+  const target=e.target.closest('[data-mode]');
+  if(!target)return;
+  if(mode==='game'&&target.dataset.mode!=='game'){stopClock();game=null;}
+  if(mode==='game'&&target.dataset.mode==='game')return;
+  mode=target.dataset.mode;
+  for(const b of document.querySelectorAll('[data-mode]')) b.setAttribute('aria-pressed',String(b===target));
+  render();
+});
+function changeSelection(){resetDeck();quiz=null;writing=null;stopClock();game=null;render();}
+
+screen.addEventListener('submit',e=>{
+  if(e.target.id!=='writing-form')return;
+  e.preventDefault();
+  const input=e.target.elements.response;
+  const answer=input.value.trim();
+  if(!answer){input.focus();return;}
+  const card=writing.items[writing.index];
+  writing.answer=answer;
+  if(accepted(card,answer))writing.score++;
+  else writing.missed.push(card);
+  render();screen.querySelector('[data-action="write-next"]')?.focus();
+});
+screen.addEventListener('click',e=>{
+  const target=e.target.closest('[data-action]');
+  if(!target)return;
+  let focus=target.dataset.action;
+  switch(focus){
+    case 'flip': flipped=!flipped;break;
+    case 'prev': move(-1);break;
+    case 'next': move(1);break;
+    case 'shuffle': deck=shuffle(deck);index=0;flipped=false;break;
+    case 'filter': onlyNew=!onlyNew;resetDeck();break;
+    case 'master': {
+      const card=deck[index];
+      if(mastered.has(card.id))mastered.delete(card.id);
+      else { mastered.add(card.id);if(onlyNew){deck.splice(index,1);index=Math.min(index,Math.max(deck.length-1,0));flipped=false;} }
+      try{localStorage.setItem(storageKey,JSON.stringify([...mastered]));}catch{}
+      break;
+    }
+    case 'write-start': startWriting(selected());break;
+    case 'write-retry': startWriting(writing.missed);break;
+    case 'write-next': writing.index++;writing.answer=null;break;
+    case 'bomb-start': beginGame();return;
+    case 'bomb-next': game.index++;nextBomb();return;
+    case 'bomb-pick': finishBomb(Number(target.dataset.id));return;
+    case 'start': startQuiz(selected());focus='pick';break;
+    case 'retry': startQuiz(quiz.missed);focus='pick';break;
+    case 'pick': {
+      const card=quiz.items[quiz.index].card;
+      quiz.choice=Number(target.dataset.id);
+      if(quiz.choice===card.id)quiz.score++;
+      else quiz.missed.push(card);
+      focus='advance';break;
+    }
+    case 'advance': quiz.index++;quiz.choice=null;focus=quiz.index===quiz.items.length?'start':'pick';break;
+  }
+  render();
+  (screen.querySelector('#writing-answer') || screen.querySelector('[data-action="'+focus+'"]:not(:disabled)'))?.focus({preventScroll:true});
+});
+document.addEventListener('keydown',e=>{
+  if(mode!=='cards'||deck.length<2||e.altKey||e.ctrlKey||e.metaKey||e.target.closest('select'))return;
+  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){
+    e.preventDefault();move(e.key==='ArrowLeft'?-1:1);render();document.querySelector('#flash')?.focus({preventScroll:true});
+  }
+});
+render();
+</script>
+</body></html>
